@@ -1,0 +1,28 @@
+body {
+  font: 100%/1.5 system-ui;
+  text-align: center;   /* centers all inline elements like text + links */
+  margin: 20px;
+}
+
+img {
+  display: block;       /* makes the image act like a block */
+  margin: 20px auto;    /* auto left/right margin centers it */
+  border-radius: 10px;  /* rounded corners */
+  max-width: 80%;       /* keeps it from being too big */
+  height: auto;
+}
+
+nav {
+  margin-bottom: 20px;
+}
+
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: darkgreen;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: seagreen;
+}
