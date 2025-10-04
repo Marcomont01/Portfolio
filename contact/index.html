@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../projects/index.html">Projects</a>
+      <a href="index.html">Contact</a>
+      <a href="https://github.com/marcomont01" target="_blank">Github</a>
+    </nav>
+
+    <h1>Contact</h1>
+
+    <form
+      action="mailto:marcocuriel00@gmail.com"
+      method="POST"
+      enctype="text/plain"
+    >
+      <label
+        >Email:
+        <input type="email" name="email" placeholder="Your email" />
+      </label>
+      <br /><br />
+
+      <label
+        >Subject:
+        <input type="text" name="subject" placeholder="Subject" />
+      </label>
+      <br /><br />
+
+      <label
+        >Message:
+        <textarea
+          name="body"
+          rows="5"
+          cols="30"
+          placeholder="Your message"
+        ></textarea>
+      </label>
+      <br /><br />
+
+      <button type="submit">Send</button>
+    </form>
+  </body>
+</html>

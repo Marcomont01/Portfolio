@@ -1,6 +1,6 @@
 body {
   font: 100%/1.5 system-ui;
-  text-align: center;   /* centers all inline elements like text + links */
+  text-align: center;   /* centers*/
   margin: 20px;
 }
 
@@ -25,4 +25,36 @@ nav a {
 
 nav a:hover {
   color: seagreen;
+}
+
+form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: darkgreen;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
