@@ -8,7 +8,7 @@ img {
   display: block;       /* makes the image act like a block */
   margin: 20px auto;    /* auto left/right margin centers it */
   border-radius: 10px;  /* rounded corners */
-  max-width: 80%;       /* keeps it from being too big */
+  max-width: 80%;       
   height: auto;
 }
 
