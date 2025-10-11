@@ -1,44 +1,73 @@
+/* applies to everything*/
+*{
+  box-sizing: border-box;
+}
+
+:root{
+  --color-main: darkgreen;
+  --color-accent: rgba(60, 179, 113, 0.15);
+}
+
 body {
   font: 100%/1.5 system-ui;
   text-align: center;   /* centers*/
-  margin: 20px;
+  margin-block: 20px;
 }
 
 img {
   display: block;       /* makes the image act like a block */
-  margin: 20px auto;    /* auto left/right margin centers it */
+  margin-inline: auto;    /* auto left/right margin centers it */
   border-radius: 10px;  /* rounded corners */
   max-width: 80%;       
   height: auto;
 }
 
+/*Styles navigation bar area wether its at the top or side*/
 nav {
+  display: flex; /*puts all link a row*/
+  justify-content: center; /*centers the links horizontally*/
+  gap: 20px; /* adds space between links*/
+  border-bottom: solid 1px var(--color-main);
   margin-bottom: 20px;
 }
 
+/* Styles each link inside the nav bar */
 nav a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: darkgreen;
+  flex:1; /* Each of the links should share the available space equally*/
+  text-align: center; /*ceneters teh text inside each link*/
+  text-decoration: none; /*removed the underline from the links*/
+  color: var(--color-main);
+  padding: 0.5em; /*adds space around text*/
   font-weight: bold;
 }
 
+/* Changes how the link look when you hover over them with your mouse*/
 nav a:hover {
   color: seagreen;
+  background-color: var(--color-accent);
+  border-bottom: 0.4em solid var(--color-main);
 }
 
+nav a.current{
+  border-bottom: 0.4em solid gray; /*thicker bottom line for current page */
+  padding-bottom: 0.1em; /* keeps link height the same*/
+}
+/* This styles the form/contact box*/
 form {
+  display: grid; /*turns form to grid container*/
+  grid-template-columns: auto 1fr; /* first column fits labels, second fills space*/
+  gap: 1em; /*adds space between rows and columns*/
   max-width: 400px;
-  margin: 20px auto;
-  padding: 15px;
+  margin: 20px auto; 
+  padding: 15px; /* adds passing inside the form so things arent squished*/
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 8px;/*round corners a bit*/
   background: #f9f9f9;
 }
 
 form label {
-  display: block;
-  margin-bottom: 10px;
+  display: contents; /*label text and imput aligh in the grid*/
+  margin-bottom: 10px; /*adds space above and below*/
 }
 
 form input, form textarea {
@@ -47,14 +76,93 @@ form input, form textarea {
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box; /* includes padding and border in width*/
 }
 
 form button {
+  grid-column: 1 / -1; /*makes button sspread accros both columns*/
   margin-top: 10px;
   padding: 10px 15px;
-  background: darkgreen;
+  background: var(--color-main);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* projects grid layout */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  gap: 1em;
+  margin: 20px;
+}
+
+/* Style each project card */
+.projects article {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  text-align: left;
+}
+
+/* Project titles */
+.projects h2 {
+  margin-top: 0;
+  font-size: 1.2em;
+  color: darkgreen;
+}
+
+/* placeholder image */
+.projects img {
+  width: 100%;
+  border-radius: 6px;
+  margin: 10px 0;
+}
+
+/* text inside cards */
+.projects p {
+  color: #333;
+  line-height: 1.4;
+}
+
+.cv {
+  max-width: 800px;           /* keeps the resume centered and easy to read */
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.cv h1 {
+  text-align: center;         /* centers the main title */
+  margin-bottom: 1.5em;
+  font-size: 2em;
+  color: #184d47;             /* dark green for a clean look */
+}
+
+.cv h2 {
+  border-bottom: 2px solid #dcdcdc; /* adds a simple gray line under section titles */
+  margin-top: 1.8em;
+  color: #184d47;
+}
+
+.cv strong {
+  color: #1a1a1a;             /* makes bold text darker so it pops out */
+}
+
+.cv ul {
+  list-style-type: none;      /* removes bullet points */
+  margin: 5px 0 15px 0;       /* keeps clean spacing */
+  padding: 0;
+}
+
+.cv li {
+  margin-bottom: 6px;
+}
+
+time {
+  color: #555;
+  font-style: italic;         /* makes dates look different from regular text */
 }
