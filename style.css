@@ -153,8 +153,8 @@ form button {
 }
 
 .cv ul {
-  list-style-type: none;      /* removes bullet points */
-  margin: 5px 0 15px 0;       /* keeps clean spacing */
+  list-style-type: none;  /* removes bullet points */
+  margin: 5px 0 15px 0;       
   padding: 0;
 }
 
