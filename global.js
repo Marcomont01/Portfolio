@@ -46,3 +46,40 @@ for (const p of pages) {
   // add link to <nav>
   nav.append(a);
 }
+
+// Dark mode theme switch
+document.body.insertAdjacentHTML(
+  'afterbegin',
+  `
+  <label class="color-scheme">
+    Theme:
+    <select id="theme-select">
+      <option value="light dark">Automatic</option>
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </label>
+  `
+);
+
+// make dropdown work
+const themeSelect = document.querySelector("#theme-select");
+
+
+// save and load theme preference
+function setColorScheme(value) {
+  document.documentElement.style.colorScheme = value; // apply theme
+  localStorage.colorScheme = value;                   // save it
+}
+
+// when dropdown changes
+themeSelect.addEventListener("change", (e) => {
+  setColorScheme(e.target.value);
+});
+
+// when page loads, check saved theme
+if ("colorScheme" in localStorage) {
+  const saved = localStorage.colorScheme;
+  setColorScheme(saved);
+  themeSelect.value = saved; // show saved option in dropdown
+}
