@@ -1,55 +1,46 @@
 console.log("It's Alive!");
 
+// quick selector helper
 function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
+
+// handle base paths for GitHub and local
 const IS_GH_PAGES = location.hostname.endsWith("github.io");
 const REPO = IS_GH_PAGES ? location.pathname.split("/")[1] : "";
-const BASE_PATH = IS_GH_PAGES ? `/${REPO}/` : "/";   // e.g., "/PORTFOLIO/" on GH, "/" locally
+const BASE_PATH = IS_GH_PAGES ? `/${REPO}/` : "/";
+const BASE_PATH_IMG = IS_GH_PAGES ? `/${REPO}/` : "/";
 
- //Pages with their URLs
+// list of pages for navbar
 const pages = [
-  { url: "",          title: "Home" },
+  { url: "", title: "Home" },
   { url: "projects/", title: "Projects" },
-  { url: "contact/",  title: "Contact" },
-  { url: "cv/",       title: "CV" },
+  { url: "contact/", title: "Contact" },
+  { url: "cv/", title: "CV" },
   { url: "https://github.com/marcomont01", title: "Github" }
 ];
 
-
-//make sure it works locally and on GitHub
+// create and add navbar
 const nav = document.createElement("nav");
-
-//puts <nav> at the top of the page
 document.body.prepend(nav);
 
-//for each page in the list
+// make each nav link
 for (const p of pages) {
-  // adds folder name of the link is not a full URL
   const href = p.url.startsWith("http") ? p.url : BASE_PATH + p.url;
-
-  // make a new <a> tag
   const a = document.createElement("a");
-  a.href = href; // set where it goes
-  a.textContent = p.title; // set the link name
+  a.href = href;
+  a.textContent = p.title;
 
-  // make GitHub open in a new tab
-  if (a.host !== location.host) {
-    a.target = "_blank";
-  }
-
-  // highlight current page link
-  if (a.host === location.host && a.pathname === location.pathname) {
+  if (a.host !== location.host) a.target = "_blank";
+  if (a.host === location.host && a.pathname === location.pathname)
     a.classList.add("current");
-  }
 
-  // add link to <nav>
   nav.append(a);
 }
 
-// Dark mode theme switch
+// add theme dropdown
 document.body.insertAdjacentHTML(
-  'afterbegin',
+  "afterbegin",
   `
   <label class="color-scheme">
     <select id="theme-select">
@@ -58,32 +49,27 @@ document.body.insertAdjacentHTML(
       <option value="dark">Dark</option>
     </select>
   </label>
-  `
+`
 );
 
-// make dropdown work
 const themeSelect = document.querySelector("#theme-select");
 
-
-// save and load theme preference
+// change theme and remember it
 function setColorScheme(value) {
-  document.documentElement.style.colorScheme = value; // apply theme
-  localStorage.colorScheme = value;                   // save it
+  document.documentElement.style.colorScheme = value;
+  localStorage.colorScheme = value;
 }
 
-// when dropdown changes
-themeSelect.addEventListener("change", (e) => {
-  setColorScheme(e.target.value);
-});
+themeSelect.addEventListener("change", (e) => setColorScheme(e.target.value));
 
-// when page loads, check saved theme
+// load saved theme on startup
 if ("colorScheme" in localStorage) {
   const saved = localStorage.colorScheme;
   setColorScheme(saved);
-  themeSelect.value = saved; // show saved option in dropdown
+  themeSelect.value = saved;
 }
 
-// fetch a JSON file and return parsed data (or [] on error)
+// fetch JSON safely
 export async function fetchJSON(url) {
   try {
     const res = await fetch(url);
@@ -95,34 +81,47 @@ export async function fetchJSON(url) {
   }
 }
 
-
+// build one project card
 export function renderProject(project, container, headingLevel = "h2") {
   if (!container) return;
 
   const article = document.createElement("article");
 
-  const imgHTML = project.image
-    ? `<img src="${project.image}" alt="${project.title || ""}" loading="lazy">`
-    : `<div class="image-placeholder">IMAGE COMING SOON</div>`;
-
-  const titleHTML = project.link
-    ? `<a href="${project.link}" target="_blank" rel="noopener">${project.title || "Untitled Project"}</a>`
-    : (project.title || "Untitled Project");
-
-  const tags = Array.isArray(project.tags) ? project.tags : [];
-  const tagsHTML = tags.length
-    ? `<div style="margin:.5rem 0 0; display:flex; gap:.5rem; flex-wrap:wrap;">
-         ${tags.map(t => `<span style="font-size:.75rem; padding:.2rem .5rem; border-radius:999px; background:#e5e7eb; color:#111;">${t}</span>`).join("")}
-       </div>`
+  // choose correct image path
+  const imgSrc = project.image
+    ? (project.image.startsWith("http")
+        ? project.image
+        : BASE_PATH_IMG + project.image.replace(/^\.?\/*/, ""))
     : "";
 
+  // create image or placeholder
+  const imgHTML = imgSrc
+    ? `<img src="${imgSrc}" alt="${project.title || ""}" loading="lazy">`
+    : `<div class="image-placeholder">IMAGE COMING SOON</div>`;
+
+  // add title and description
+  const titleHTML = project.link
+    ? `<a href="${project.link}" target="_blank" rel="noopener">${project.title || "Untitled Project"}</a>`
+    : project.title || "Untitled Project";
+
   article.innerHTML = `
-    <${headingLevel} style="margin:0 0 .5rem 0">${titleHTML}</${headingLevel}>
+    <${headingLevel}>${titleHTML}</${headingLevel}>
     ${imgHTML}
     <p>${project.description || ""}</p>
-    ${tagsHTML}
   `;
 
   container.appendChild(article);
 }
 
+// render a group of projects
+export function renderProjects(projects, container, headingLevel = "h2") {
+  if (!container) return;
+  container.innerHTML = "";
+  (projects || []).forEach((p) => renderProject(p, container, headingLevel));
+}
+
+// fetch GitHub data for a username
+export async function fetchGitHubData(username) {
+  // use the GitHub API for that user
+  return fetchJSON(`https://api.github.com/users/${username}`);
+}

@@ -1,17 +1,74 @@
 [
   {
-    "title": "Project One",
-    "image": "Images/plant.png",
-    "description": "Short description for project one."
+    "title": "Portfolio Website",
+    "year": "2025",
+    "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+    "description": "Personal website showcasing my work and coding projects."
   },
   {
-    "title": "Project Two",
-    "image": "",
-    "description": "Short description for project two."
+    "title": "Data Visualization Dashboard",
+    "year": "2025",
+    "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+    "description": "Interactive dashboard built with JavaScript and D3.js."
   },
   {
-    "title": "Project Three",
-    "image": "",
-    "description": "Short description for project three."
+    "title": "Marketing Analytics Report",
+    "year": "2024",
+    "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+    "description": "Analyzed campaign data and presented insights using Power BI."
+  },
+  {
+    "title": "Machine Learning Classifier",
+    "year": "2024",
+    "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+    "description": "Created a simple classifier using Python and Scikit-Learn."
+  },
+  {
+    "title": "CRM Integration Project",
+    "year": "2024",
+    "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+    "description": "Integrated Salesforce API with internal dashboards."
+  },
+  {
+    "title": "E-commerce Website",
+    "year": "2023",
+    "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+    "description": "Developed a full-stack online store using HTML, CSS, and JS."
+  },
+  {
+    "title": "Mobile Expense Tracker",
+    "year": "2023",
+    "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+    "description": "Designed and built an app to track daily spending habits."
+  },
+  {
+    "title": "Social Media Analytics Tool",
+    "year": "2023",
+    "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+    "description": "Tool to monitor engagement metrics and follower growth."
+  },
+  {
+    "title": "Predictive Sales Model",
+    "year": "2022",
+    "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+    "description": "Built a regression model to forecast sales by region."
+  },
+  {
+    "title": "Survey Data Visualization",
+    "year": "2022",
+    "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+    "description": "Visualized survey data in interactive charts."
+  },
+  {
+    "title": "Chatbot Assistant",
+    "year": "2021",
+    "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+    "description": "Created a simple conversational bot using Python."
+  },
+  {
+    "title": "Stock Price Forecasting",
+    "year": "2021",
+    "image": "https://dsc106.com/labs/lab02/images/empty.svg",
+    "description": "Predicted stock trends using historical data and ML."
   }
 ]
