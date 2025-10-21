@@ -1,7 +1,14 @@
 import { fetchJSON, renderProjects } from "../global.js";
 
+// Compute base path on this page too (works locally + GitHub Pages)
+const IS_GH_PAGES = location.hostname.endsWith("github.io");
+const REPO = IS_GH_PAGES ? location.pathname.split("/")[1] : "";
+const BASE_PATH = IS_GH_PAGES ? `/${REPO}/` : "/";
+
 async function main() {
-  const data = await fetchJSON("../lib/projects.json"); // relative to this file
+  // Use absolute path so GitHub Pages never 404s
+  const data = await fetchJSON(`${BASE_PATH}lib/projects.json`);
+
   const listEl  = document.querySelector(".projects");
   const titleEl = document.querySelector(".projects-title");
 
