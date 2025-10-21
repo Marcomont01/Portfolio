@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Project One",
+    "image": "Images/plant.png",
+    "description": "Short description for project one."
+  },
+  {
+    "title": "Project Two",
+    "image": "",
+    "description": "Short description for project two."
+  },
+  {
+    "title": "Project Three",
+    "image": "",
+    "description": "Short description for project three."
+  }
+]
