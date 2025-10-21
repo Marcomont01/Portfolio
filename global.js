@@ -3,6 +3,10 @@ console.log("It's Alive!");
 function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
+const IS_GH_PAGES = location.hostname.endsWith("github.io");
+const REPO = IS_GH_PAGES ? location.pathname.split("/")[1] : "";
+const BASE_PATH = IS_GH_PAGES ? `/${REPO}/` : "/";   // e.g., "/PORTFOLIO/" on GH, "/" locally
+
  //Pages with their URLs
 const pages = [
   { url: "",          title: "Home" },
@@ -12,14 +16,10 @@ const pages = [
   { url: "https://github.com/marcomont01", title: "Github" }
 ];
 
-//make sure it works locally and on GitHub
-const BASE_PATH =
-  location.hostname === "localhost" || location.hostname === "127.0.0.1"
-    ? "/"              // local server
-    : "/Portfolio/";
 
-  //<nav> tag
+//make sure it works locally and on GitHub
 const nav = document.createElement("nav");
+
 //puts <nav> at the top of the page
 document.body.prepend(nav);
 
@@ -82,3 +82,47 @@ if ("colorScheme" in localStorage) {
   setColorScheme(saved);
   themeSelect.value = saved; // show saved option in dropdown
 }
+
+// fetch a JSON file and return parsed data (or [] on error)
+export async function fetchJSON(url) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+    return await res.json();
+  } catch (err) {
+    console.error("fetchJSON error:", err);
+    return [];
+  }
+}
+
+
+export function renderProject(project, container, headingLevel = "h2") {
+  if (!container) return;
+
+  const article = document.createElement("article");
+
+  const imgHTML = project.image
+    ? `<img src="${project.image}" alt="${project.title || ""}" loading="lazy">`
+    : `<div class="image-placeholder">IMAGE COMING SOON</div>`;
+
+  const titleHTML = project.link
+    ? `<a href="${project.link}" target="_blank" rel="noopener">${project.title || "Untitled Project"}</a>`
+    : (project.title || "Untitled Project");
+
+  const tags = Array.isArray(project.tags) ? project.tags : [];
+  const tagsHTML = tags.length
+    ? `<div style="margin:.5rem 0 0; display:flex; gap:.5rem; flex-wrap:wrap;">
+         ${tags.map(t => `<span style="font-size:.75rem; padding:.2rem .5rem; border-radius:999px; background:#e5e7eb; color:#111;">${t}</span>`).join("")}
+       </div>`
+    : "";
+
+  article.innerHTML = `
+    <${headingLevel} style="margin:0 0 .5rem 0">${titleHTML}</${headingLevel}>
+    ${imgHTML}
+    <p>${project.description || ""}</p>
+    ${tagsHTML}
+  `;
+
+  container.appendChild(article);
+}
+

@@ -1,17 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Marco Curiel: Projects</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Projects</title>
     <link rel="stylesheet" href="../style.css" />
+    <style>
+      /* tiny defaults so you see something right away */
+      body {
+        font-family: system-ui, Arial;
+        margin: 24px;
+      }
+      nav a {
+        margin-right: 12px;
+      }
+      .projects-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 16px 0;
+      }
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+      }
+      article {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 16px;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+        border-radius: 8px;
+      }
+      .image-placeholder {
+        height: 140px;
+        display: grid;
+        place-items: center;
+        border: 1px dashed #bbb;
+        border-radius: 8px;
+      }
+    </style>
   </head>
-
   <body>
-    <h1 class="projects-title">My Projects</h1>
-    <section class="projects"></section>
+    <h1 class="projects-title"></h1>
+    <div class="projects"></div>
 
-    <script src="../global.js" type="module"></script>
-    <script src="projects.js" type="module"></script>
+    <!-- order matters -->
+    <script type="module" src="../global.js"></script>
+    <script type="module" src="./projects.js"></script>
   </body>
 </html>
