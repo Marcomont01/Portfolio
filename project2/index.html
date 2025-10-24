@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Project 2 — Deceptive Visualization?</title>
+
+    <style>
+      /* --- Very simple styles --- */
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        background: #f5f6f8; /* light gray page */
+        color: #222; /* dark text */
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 32px auto;
+        padding: 0 16px;
+      }
+
+      .badge {
+        display: inline-block;
+        background: #2f7d32;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      h1 {
+        margin: 12px 0 6px;
+      }
+
+      .subhead {
+        color: #556;
+        font-size: 14px;
+        margin-bottom: 18px;
+      }
+
+      .card {
+        background: white;
+        border: 1px solid #e3e6eb;
+        border-radius: 10px;
+        padding: 16px;
+        margin: 14px 0;
+      }
+
+      .section-title {
+        font-size: 13px;
+        color: #556;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+      }
+
+      ul {
+        margin: 8px 0 0 18px;
+      }
+
+      p.placeholder {
+        background: #f8f9fb;
+        border: 1px solid #ccd2da;
+        border-radius: 8px;
+        padding: 10px 12px;
+        color: #667;
+        font-style: italic;
+      }
+
+      .note {
+        text-align: center;
+        color: #667;
+        font-size: 13px;
+        margin-top: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <span class="badge">Project 2</span>
+      <h1>Deceptive Visualization?</h1>
+      <p class="subhead"><strong>Marco Curiel</strong> — m1curiel@ucsd.edu</p>
+
+      <section class="card">
+        <h2>
+          Proposition:
+          <span style="color: #556"
+            >The NYPD’s policing reforms, including the rollout of body-worn
+            cameras in 2019, gave investigators more evidence to confirm
+            incidents, which led to more substantiated complaints.</span
+          >
+        </h2>
+      </section>
+
+      <section class="card">
+        <div class="section-title">For the Proposition</div>
+        <img src="Images/FOR.png" width="700" />
+        <h4>
+          Figure 1: Substantiated misconduct cases rose after body cameras
+          became common, suggesting increased accountability.
+        </h4>
+
+        <h4>Design Decisions and Rationale</h4>
+        <ul>
+          <li>
+            Cherry picking timeframes: I only showed 2009–2010 and 2019–2020,
+            skipping the years in between to make the jump look cleaner and more
+            dramatic. By hiding those middle years, the increase seems steady
+            and significant, even if the real trend isn’t. I did this to tell a
+            simple “before vs. after” story that people can quickly understand.
+            It makes the chart persuasive because the change looks clear and
+            purposeful. It worked well visually, but it oversimplified the data.
+            I first thought of including all years since that made the graph
+            busier and less focused.
+          </li>
+          <li>
+            Emphasizing percentage change (+11.2 pts):I used a big red arrow,
+            bold font, and the label “+11.2 pts” to make the difference stand
+            out. The bright color and large text pull attention to the increase
+            and make it feel bigger and more important than it might be. I did
+            this because people naturally focus on large, colorful numbers, and
+            it makes the story easy to remember. It makes the chart persuasive
+            because the change looks impressive and hard to ignore. It worked
+            well for grabbing attention, but it leaves out important context
+            like sample size or uncertainty. I first tried smaller text and
+            neutral colors, but that made the visual lose its impact.
+          </li>
+          <li>
+            Causal framing through title and layout:The title “Body Cameras Shed
+            Light on Misconduct” and the upward arrow make it seem like body
+            cameras directly caused the increase in substantiated complaints.
+            The layout also reads like a story and pushes the idea of progress
+            and improvement. I did this to make the chart feel more direct and
+            convincing, since viewers can quickly connect cause and effect. It
+            makes the message strong and easy to follow, but it also implies
+            causation that the data doesn’t actually prove. I first thought of
+            using a neutral title, but the causal one made the story more
+            memorable and attention-grabbing.
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <div class="section-title">Against the Proposition</div>
+        <img src="Images/AGAINST.png" width="700" />
+        <h4>
+          Figure 2: After body cam rollout, substantiated cases dropped while
+          exonerations climbed, showing a shift in complaint outcomes.
+        </h4>
+
+        <h4>Design Decisions and Rationale</h4>
+        <ul>
+          <li>
+            Selective reference line:I added a dashed line labeled “Body Cam
+            rollout begins (Apr 2017)” to make it look like that moment caused
+            the shift in complaints. The line acts as a visual anchor, so people
+            connect the trend change to that event. It made the story feel
+            cleaner and more intentional, but it also hid that the trend started
+            earlier. I thought about removing the line or adding more context,
+            but leaving it made the message stronger and easier to understand in
+            a quick view.
+          </li>
+          <li>
+            Scale and normalization: I used raw counts instead of rates to make
+            the changes look bigger and more dramatic. Showing totals
+            exaggerates the movement between categories, even if the overall
+            number of cases dropped. This helped the graph feel more impactful
+            and aligned with the “shift” story. It worked visually, but it
+            oversimplified the data. I considered using percentages, but it made
+            the differences smaller and less convincing.
+          </li>
+          <li>
+            Emotional color cues: I used red for “substantiated ↓” and green for
+            “exonerated ↑” to trigger emotional reactions. People naturally see
+            red as bad and green as good, so the colors helped tell the story
+            without extra text. It made the chart more persuasive and memorable
+            and it also created a bias. I tested softer colors but decided to
+            keep the strong ones because they draw immediate attention and
+            supported the narrative.
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Final Reflection</h2>
+        <p class="placeholder">
+          Working on both charts showed me how much power design choices have
+          over how people read data. In the first chart, the “for” version, I
+          only used two time periods (2009–2010 and 2019–2020) to make the rise
+          in substantiated complaints look simple and dramatic. Skipping the
+          years in between made the jump look clean, even though the real data
+          had a lot more variation. I also highlighted “+11.2 pts” in bold red
+          so it grabbed attention right away and made the change feel more
+          important than it really was. It was easy to code in Python, but it
+          was harder to decide what to show and what to hide. That part made me
+          realize how easy it is to shape a story without ever technically
+          lying. The second chart, the “against” version, showed the full data
+          from 2005 to 2019, including Substantiated, Unsubstantiated, and
+          Exonerated outcomes. I added a shaded area for 2017 to show when body
+          cams rolled out, but that choice also pulled attention toward one
+          specific point in time and made people connect that moment to the
+          shift in trends. Color played a big role too, red made the
+          “substantiated” line feel bad, and green made “exonerated” feel
+          positive, even though those labels are neutral in reality. This
+          version gave a clearer picture, but it was harder to keep clean and
+          visually balanced without losing focus. I think ethical visualization
+          is about being clear without being misleading. You can guide
+          attention, but you shouldn’t bend the story or remove context just to
+          make a point. The first chart crossed that line a bit because it hid
+          too much, while the second one stayed fair even though it looked
+          messier. What worked best was seeing how small details, like colors,
+          titles, and scaling, completely change how someone interprets data.
+          What didn’t work was how easily those same details can push people
+          toward a biased takeaway. Now, whenever I look at a “nice” chart, I’ll
+          try to ask what’s missing or why it looks that way, because sometimes
+          what’s left out says more than what’s shown.
+        </p>
+      </section>
+
+      <p class="note">Template: replace placeholders with your content.</p>
+    </main>
+  </body>
+</html>
