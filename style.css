@@ -192,3 +192,57 @@ time {
   background-color: canvas;
   color: canvastext;
 }
+
+#projects-pie-plot {
+  max-width: 20em;
+  margin-block: 2em;
+  overflow: visible; /* lets labels peek outside*/
+}
+
+/* Lay pie and legend side by side, but responsive */
+.pie-wrap {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;            /* stack on small screens */
+}
+
+/* Legend block */
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: .5rem .75rem;
+  padding: .75rem;
+  margin: .25rem 0;
+  border: 1px solid #e3e6eb;
+  border-radius: .5rem;
+  list-style: none;
+}
+
+/* Each legend row */
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .95rem;
+}
+
+/* Color swatch */
+.legend .swatch {
+  display: inline-block;      /* needed to size inline elements */
+  width: .85rem;
+  height: .85rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 1px solid #fff;     /* little ring so light colors pop */
+  box-shadow: 0 0 0 1px rgba(0,0,0,.08);
+}
+
+svg:has(path:hover) path:not(:hover) {
+  opacity: 0.5;
+}
+
+path {
+  transition: 300ms;
+  cursor: pointer;
+}
