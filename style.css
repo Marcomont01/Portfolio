@@ -246,3 +246,19 @@ path {
   transition: 300ms;
   cursor: pointer;
 }
+
+/* summary stats block */
+.stats {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .25rem .75rem;
+  margin-block: 1rem 2rem;
+}
+.stats dt { font-weight: 600; }
+.stats dd { margin: 0; }
+
+/* faint gridlines for the scatterplot */
+.gridlines line {
+  stroke: currentColor;
+  opacity: .15;
+}

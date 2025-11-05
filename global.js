@@ -17,6 +17,7 @@ const pages = [
   { url: "projects/", title: "Projects" },
   { url: "contact/", title: "Contact" },
   { url: "cv/", title: "CV" },
+  { url: "meta/", title: "Meta" },
   { url: "https://github.com/marcomont01", title: "Github" }
 ];
 
