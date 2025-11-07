@@ -14,7 +14,21 @@
 
     <h2>Commits by time of day</h2>
     <div id="chart"></div>
+    <!--Tooltip (starts hidden). Put just after #chart -->
+    <dl id="commit-tooltip" class="info tooltip" hidden>
+      <dt>Commit</dt>
+      <dd><a href="#" id="commit-link" target="_blank" rel="noopener"></a></dd>
 
+      <dt>Date</dt>
+      <dd id="commit-date"></dd>
+      <!-- You can add more rows later: Author, Lines edited, etc. -->
+    </dl>
+
+    <!-- hooks -->
+    <p id="selection-count">No commits selected</p>
+    <dl id="language-breakdown" class="stats"></dl>
+
+    <script type="module" src="../global.js"></script>
     <script type="module" src="./main.js"></script>
     <dl id="commit-tooltip" class="info tooltip" hidden>
       <dt>Commit</dt>

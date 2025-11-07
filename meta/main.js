@@ -1,3 +1,28 @@
+// --- Tooltip helpers ---
+// Fills the tooltip with the current commit
+function renderTooltipContent(commit) {
+  const link = document.getElementById('commit-link');
+  const date = document.getElementById('commit-date');
+  if (!commit) return;
+
+  link.href = commit.url;            // link to the commit on GitHub
+  link.textContent = commit.id;      // short commit id
+  date.textContent = commit.datetime?.toLocaleString('en', { dateStyle: 'full' });
+}
+
+// Shows or hides the tooltip
+function updateTooltipVisibility(isVisible) {
+  const tip = document.getElementById('commit-tooltip');
+  tip.hidden = !isVisible;
+}
+
+// Moves the tooltip near the mouse
+function updateTooltipPosition(event) {
+  const tip = document.getElementById('commit-tooltip');
+  tip.style.left = `${event.clientX}px`;
+  tip.style.top  = `${event.clientY}px`;
+}
+
 function renderScatterPlot(data, commits) {
   // --- Setup chart size ---
   const width = 1000;
@@ -66,20 +91,44 @@ function renderScatterPlot(data, commits) {
 
   // --- Add dots for each commit ---
   // Each circle = one commit
-  const dots = svg
-    .append("g")
-    .attr("class", "dots")
-    .selectAll("circle")
-    .data(commits)
-    .join("circle")
-    .attr("cx", (d) => xScale(d.datetime)) // X position by date
-    .attr("cy", (d) => yScale(d.hourFrac)) // Y position by time
-    .attr("r", 5)
-    .attr("fill", "steelblue")
-    .append("title") // small tooltip on hover
-    .text((d) => `${d.author} – ${d.datetime.toLocaleString()}\nLines: ${d.totalLines}`);
+  
+const dotsGroup = svg.append("g").attr("class", "dots");
 
-  // Update legend color and position when commits change
-  // (we could add a small legend later if needed)
+// Sort largest first later in Step 4; for now render directly
+let dots = dotsGroup
+  .selectAll("circle")
+  .data(commits)
+  .join("circle")
+  .attr("cx", d => xScale(d.datetime))
+  .attr("cy", d => yScale(d.hourFrac))
+  .attr("r", 5)
+  .attr("fill", "steelblue");
+
+// Tooltip events
+dots
+  .on("mouseenter", (event, commit) => {
+    renderTooltipContent(commit);          // fill tooltip
+    updateTooltipVisibility(true);         // show tooltip
+    updateTooltipPosition(event);          // initial position
+  })
+  .on("mousemove", (event) => {
+    updateTooltipPosition(event);          // follow mouse
+  })
+  .on("mouseleave", () => {
+    updateTooltipVisibility(false);        // hide tooltip
+  });
+
+// Update legend color and position when commits change
+// (placeholder comment per your request)
+
+  // --- Size dots by number of lines edited ---
+const [minLines, maxLines] = d3.extent(commits, d => d.totalLines);
+
+// Use square-root scale so dot *area* is proportional
+const rScale = d3.scaleSqrt().domain([minLines, maxLines]).range([2, 30]);
+
+// Apply radius and transparency
+dots
+  .attr("r", d => rScale(d.totalLines))
+  .style("fill-opacity", 0.7);
   }
-
