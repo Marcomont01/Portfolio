@@ -262,3 +262,45 @@ path {
   stroke: currentColor;
   opacity: .15;
 }
+
+/* Tooltip layout and behavior */
+dl.info {
+  display: grid;
+  grid-template-columns: auto 1fr; /* labels left, values right */
+  gap: .25rem .75rem;
+  margin: 0;
+  padding: .5rem .75rem;
+  background-color: rgba(255,255,255,.9); /* subtle card */
+  box-shadow: 0 2px 4px rgba(0,0,0,.2);
+  border-radius: 8px;
+  position: fixed;  /* anchored to viewport */
+  top: 1rem;        /* initial safe spot; JS will move it */
+  left: 1rem;
+  transform-origin: center; /* keep scale centered on hover */
+  transform-box: fill-box;
+  transition: opacity .5s ease, visibility .5s ease;
+}
+
+dl.info[hidden] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Slight grow on dot hover feels nice */
+circle:hover {
+  transform: scale(1.5);
+  transition: transform .2s ease;
+}
+
+/* Brushing visuals*/
+circle.selected { fill: #ff6b6b; }
+.selection {
+  stroke: black;
+  stroke-opacity: .7;
+  stroke-dasharray: 5 3;
+  fill-opacity: .1;
+  animation: marching-ants 2s linear infinite;
+}
+@keyframes marching-ants {
+  to { stroke-dashoffset: -8; }
+}
