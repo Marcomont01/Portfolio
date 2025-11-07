@@ -81,4 +81,5 @@ function renderScatterPlot(data, commits) {
 
   // Update legend color and position when commits change
   // (we could add a small legend later if needed)
-}
+  }
+
