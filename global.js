@@ -115,10 +115,41 @@ export function renderProject(project, container, headingLevel = "h2") {
 }
 
 // render a group of projects
-export function renderProjects(projects, container, headingLevel = "h2") {
+export function renderProjects(items, container, headingLevel = 'h3') {
   if (!container) return;
-  container.innerHTML = "";
-  (projects || []).forEach((p) => renderProject(p, container, headingLevel));
+  container.innerHTML = ''; // clear it out
+
+  // if no projects, show a message
+  if (!items || items.length === 0) {
+    container.innerHTML = '<p class="fallback">No projects found.</p>';
+    return;
+  }
+
+  // Create an HTML string for each project
+  const html = items.map(p => {
+    const title = p.title || 'Untitled Project';
+    const desc = p.description || '...';
+    
+    // Build the inner content of the card
+    const cardContent = `
+      ${p.image ? `<img src="${p.image}" alt="${title}" loading="lazy" />` : ''}
+      <div class="card-content">
+        <${headingLevel} class="card-title">${title}</${headingLevel}>
+        ${p.year ? `<span class="card-year">${p.year}</span>` : ''}
+        <p>${desc}</p>
+      </div>
+    `;
+
+    // If 'p.url' exists, wrap the card in an <a> link.
+    // Otherwise, wrap it in a plain <div>.
+    if (p.url) {
+      return `<a href="${p.url}" class="card project-card">${cardContent}</a>`;
+    } else {
+      return `<div class="card project-card non-clickable">${cardContent}</div>`;
+    }
+  }).join(''); // join all card strings together
+
+  container.innerHTML = html;
 }
 
 // fetch GitHub data for a username

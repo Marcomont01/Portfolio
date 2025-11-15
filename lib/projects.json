@@ -4,7 +4,7 @@
     "year": "2024",
     "image": "https://dsc106.com/labs/lab02/images/empty.svg",
     "description": "Interactive D3 + Mapbox visualization of bikeshare traffic in Boston.",
-    "url": "./bikewatching/index.html"
+    "url": "./bikewatching/"
   },
   {
     "title": "Data Visualization Dashboard",

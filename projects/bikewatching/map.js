@@ -71,13 +71,12 @@ function getCoords(station) {
 
 // ----- Step 2: Add bike lanes (Boston + Cambridge) -----
 function addBikeLanes() {
-  // wait for map style to be ready
-  map.on('load', async () => {
-    // source + layer for Boston lanes
-    map.addSource('boston_route', {
-      type: 'geojson',
-      data: BOSTON_LANES_URL
-    });
+  
+
+  map.addSource('boston_route', {
+    type: 'geojson',
+    data: BOSTON_LANES_URL
+  });
     map.addLayer({
       id: 'bike-lanes-boston',
       type: 'line',
@@ -94,6 +93,7 @@ function addBikeLanes() {
       type: 'geojson',
       data: CAMBRIDGE_LANES_URL
     });
+    
     map.addLayer({
       id: 'bike-lanes-cambridge',
       type: 'line',
@@ -104,8 +104,7 @@ function addBikeLanes() {
         'line-opacity': 0.4
       }
     });
-  });
-}
+};
 
 // ----- Step 3: Stations (SVG overlay with D3) -----
 function setupStations() {
@@ -114,7 +113,7 @@ function setupStations() {
 
   // helper to (re)position all circles based on current view
   function updatePositions() {
-    circles
+    svg.selectAll('circle')
       .attr('cx', d => getCoords(d).cx)
       .attr('cy', d => getCoords(d).cy);
   }
@@ -239,8 +238,8 @@ map.on('load', async () => {
     bike_type: d.bike_type,
     start: new Date(d.trip_started_at),
     end:   new Date(d.trip_ended_at),
-    start_station_id: d.start_station_id,
-    end_station_id: d.end_station_id,
+    start_station_id: +d.start_station_id,
+    end_station_id: +d.end_station_id,
     member: d.member
   }));
   trips = tripsRaw; // keep original
