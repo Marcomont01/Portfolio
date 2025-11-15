@@ -1,9 +1,10 @@
 [
   {
-    "title": "Portfolio Website",
-    "year": "2025",
+    "title": "Bikewatching Map",
+    "year": "2024",
     "image": "https://dsc106.com/labs/lab02/images/empty.svg",
-    "description": "Personal website showcasing my work and coding projects."
+    "description": "Interactive D3 + Mapbox visualization of bikeshare traffic in Boston.",
+    "url": "./bikewatching/index.html"
   },
   {
     "title": "Data Visualization Dashboard",

@@ -1,0 +1,75 @@
+/* basic layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+.page-title { margin: 10px 12px; font-size: 18px; }
+
+/* map container */
+#map {
+  position: relative;         /* lets us position UI + svg over map */
+  width: 100%;
+  height: 90vh;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* svg overlay for d3 circles */
+#map svg {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;        /* keep panning/zooming working on map */
+}
+
+/* time slider UI (top-right) */
+#map .ui {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  right: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: rgba(255,255,255,0.92);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+#selected-time { min-width: 80px; text-align: right; }
+
+/* legend (bottom-center) */
+.legend {
+  position: absolute;
+  z-index: 2;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  background: rgba(255,255,255,0.92);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+.legend .sw {
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+/* colors match the 3 buckets we compute in JS */
+.legend .more-dep { background:#6ea8fe; }
+.legend .balanced { background:#c9c9ff; }
+.legend .more-arr { background:#ffb26e; }
+
+/* base circle style (fill set in JS) */
+#map svg circle {
+  stroke: #fff;
+  stroke-width: 1;
+  fill-opacity: 0.6;
+}
