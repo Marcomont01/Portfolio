@@ -61,6 +61,7 @@ const timeReadout = document.getElementById('selected-time');
 let stations = [];
 let trips = [];
 let filteredStations = []; // will hold stations with computed traffic for current filter
+let global_max = 1;
 
 // compute lon/lat -> pixel each render
 function getCoords(station) {
@@ -159,22 +160,26 @@ function setupStations() {
 
 // ----- Step 4 + 5: Load data, compute traffic, filter by time -----
 
-// compute arrivals/departures for all stations given a trips array
-function computeStationTraffic(stationsInput, tripsInput) {
+function computeStationTraffic(stationsInput, tripsInput, useGlobalMax = false) {
   // quick maps for counting
   const depCounts = d3.rollup(tripsInput, v => v.length, d => d.start_station_id);
   const arrCounts = d3.rollup(tripsInput, v => v.length, d => d.end_station_id);
 
   // attach counts to station objects
   const out = stationsInput.map(s => {
-    const departures = depCounts.get(s.id) ?? 0;
-    const arrivals   = arrCounts.get(s.id) ?? 0;
+    const departures   = depCounts.get(s.id) ?? 0;
+    const arrivals     = arrCounts.get(s.id) ?? 0;
     const totalTraffic = departures + arrivals;
     return { ...s, departures, arrivals, totalTraffic };
   });
 
-  // update radius domain with new totals
-  radiusScale.domain([0, d3.max(out, d => d.totalTraffic) || 1]);
+  // first call (all trips): set global_max
+  if (!useGlobalMax) {
+    global_max = d3.max(out, d => d.totalTraffic) || 1;
+  }
+
+  // always scale with the same global max
+  radiusScale.domain([0, global_max]);
 
   return out;
 }
@@ -184,23 +189,28 @@ function minutesSinceMidnight(date) {
   return date.getHours() * 60 + date.getMinutes();
 }
 
-// filter trips by ±60 minutes around selected time (handles wrap-around)
 function filterTripsByTime(allTrips, minute) {
-  if (Number(minute) === 1) return allTrips; // 1 == “Any time” in our UI
+  const m = Number(minute);
 
-  const minMinute = (Number(minute) - 60 + 1440) % 1440;
-  const maxMinute = (Number(minute) + 60) % 1440;
+  // value 1 means "Any time" in our UI
+  if (m === 1) return allTrips;
 
-  // precompute minutes for start/end
-  return allTrips.filter(t => {
+  const minMinute = (m - 60 + 1440) % 1440;
+  const maxMinute = (m + 60) % 1440;
+
+  const filtered = allTrips.filter(t => {
     const mStart = minutesSinceMidnight(t.start);
     const mEnd   = minutesSinceMidnight(t.end);
-    // inside window for either start or end
+
     const inRange = (minMinute <= maxMinute)
       ? (mStart >= minMinute && mStart <= maxMinute) || (mEnd >= minMinute && mEnd <= maxMinute)
       : (mStart >= minMinute || mStart <= maxMinute) || (mEnd >= minMinute || mEnd <= maxMinute);
+
     return inRange;
   });
+
+  // if nothing matches this time window, fall back to all trips
+  return filtered.length ? filtered : allTrips;
 }
 
 // ----- Step 5.2: reactivity (hook slider) -----
@@ -221,11 +231,11 @@ map.on('load', async () => {
   // Step 2: lanes
   addBikeLanes();
 
-  // Step 3.1: load stations (json) + TRIPS (csv)
+  // Step 3.1: load stations (json) + TRIPS (csv
   // stations json: note structure has data.stations
   const stationsJson = await (await fetch(STATIONS_URL)).json();
   stations = stationsJson.data.stations.map(s => ({
-    id: s.number,
+    id: +s.number,
     short_name: s.short_name,
     name: s.name,
     lon: s.lon,
@@ -254,7 +264,7 @@ map.on('load', async () => {
   // Step 5: slider filter: recompute on change and redraw
   wireSlider((minute) => {
     const t = filterTripsByTime(trips, minute);
-    filteredStations = computeStationTraffic(stations, t);
+    filteredStations = computeStationTraffic(stations, t, true);
 
     // redraw circles with new sizes/colors
     drawCircles();
