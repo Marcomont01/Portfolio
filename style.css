@@ -304,3 +304,174 @@ circle.selected { fill: #ff6b6b; }
 @keyframes marching-ants {
   to { stroke-dashoffset: -8; }
 }
+
+/* ---------- Meta page: scrollytelling layout ---------- */
+
+/* Two-column layout: text on the left, sticky chart on the right */
+#scrolly {
+  max-width: 70rem;
+  margin: 2rem auto 3rem;
+  padding: 0 1rem;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  text-align: left; /* override global center text for this section */
+}
+
+/* Left column: commit stories */
+#scatter-story {
+  flex: 1;
+}
+
+/* Each scrolly "step" block */
+#scatter-story .step {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 0.75rem 0.75rem 0;
+  border-left: 3px solid transparent;
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+
+/* Highlight the active step */
+#scatter-story .step.active {
+  border-color: var(--color-main);
+  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
+}
+
+/* Right column: sticky chart */
+#chart-wrapper {
+  flex: 1;
+  position: sticky;
+  top: 4.5rem;
+}
+
+/* Make the SVG responsive */
+#chart svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------- Meta page: unit visualization styles ---------- */
+#files {
+  max-width: 60rem;
+  margin: 2rem auto 4rem;
+  padding: 0 1rem;
+  text-align: left;
+}
+
+/* One horizontal row per file: name | dots | line count */
+.file-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Left column: file name */
+.file-label {
+  min-width: 12rem;
+  font-weight: 600;
+}
+
+/* Middle column: all the dots */
+.file-dots {
+  flex: 1;                 /* take up remaining space */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+}
+
+/* Right column: repeated line count */
+.file-count {
+  min-width: 5rem;
+  text-align: right;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Each dot = one line of code */
+.file-dot {
+  width: 0.45rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+}
+
+/* ---------- Codebase evolution: two-column layout ---------- */
+
+#codebase-evolution {
+  max-width: 70rem;
+  margin: 2rem auto 4rem;
+  padding: 0 1rem;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* Left column (dots) */
+#files {
+  flex: 1.2;
+}
+
+/* Right column (commit narratives) */
+#files-story {
+  flex: 1;
+  text-align: left;
+}
+
+/* Commit text in the right column */
+#files-story p {
+  margin-bottom: 1rem;
+}
+
+/* Keep commit dots stable on Meta page (no extra scale transform) */
+#chart circle:hover {
+  transform: none;
+}
+
+/* ---------- Meta page header layout ---------- */
+
+#meta-header {
+  max-width: 70rem;
+  margin: 2rem auto 3rem;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  text-align: left; /* override global center text */
+}
+
+/* Big "Meta" title + tagline */
+#meta-header .meta-title-block h1 {
+  margin: 0;
+  font-size: 3.2rem;
+  line-height: 1.05;
+}
+
+#meta-header .meta-title-block p {
+  margin: 0.75rem 0 0;
+  font-size: 1.05rem;
+}
+
+/* Stats row: COMMITS | FILES | TOTAL LOC | MAX DEPTH | LONGEST LINE | MAX LINES */
+#meta-header .stats {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* EXACTLY 6 equal columns */
+  gap: 0.75rem 1.5rem;
+  align-items: start;
+  margin: 0;
+  text-align: center; /* optional: looks cleaner */
+}
+
+/* Stat label (small uppercase text) */
+#meta-header .stats dt {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6e6e6e;
+}
+
+/* Stat value (large number) */
+#meta-header .stats dd {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 500;
+}

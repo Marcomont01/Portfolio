@@ -7,26 +7,43 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <h1>Marco Curiel</h1>
-    <p>This is my portfolio website</p>
+    <!-- nav + theme switcher are injected by global.js -->
 
-    <img src="Images/plant.png" alt="Pothos plant" width="300" />
+    <main class="home-main">
+      <!-- Hero section -->
+      <section class="hero card">
+        <h1>Marco Curiel</h1>
+        <p class="tagline">This is my portfolio website</p>
 
-    <!-- Latest projects block -->
-    <h2>Latest Projects</h2>
-    <ul>
-      <li>
-        <a href="project2/index.html">Project 2 — Deceptive Visualization?</a>
-      </li>
-    </ul>
-    <div class="projects"></div>
-    <p><a href="projects/">View all projects →</a></p>
+        <img src="Images/plant.png" alt="Pothos plant" class="hero-image" />
+      </section>
 
-    <!-- Scripts (global first, then page script) -->
+      <!-- Latest projects block -->
+      <section class="latest-projects">
+        <h2>Latest Projects</h2>
+
+        <!-- existing “project 2” link preserved -->
+        <p class="latest-link">
+          <a href="project2/index.html">Project 2 — Deceptive Visualization?</a>
+        </p>
+
+        <!-- cards injected by index.js -->
+        <div class="projects"></div>
+
+        <p class="view-all">
+          <a href="projects/">View all projects →</a>
+        </p>
+      </section>
+
+      <!--GitHub stats -->
+      <section class="github-section card">
+        <h2>My GitHub Stats</h2>
+        <div id="profile-stats"></div>
+      </section>
+    </main>
+
+    <!--Scripts (global first, then page script) -->
     <script type="module" src="./global.js"></script>
     <script type="module" src="./index.js" defer></script>
-
-    <h2>My GitHub Stats</h2>
-    <div id="profile-stats"></div>
   </body>
 </html>

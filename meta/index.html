@@ -4,29 +4,62 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Meta</title>
+    <!-- Reuse the main site styles -->
     <link rel="stylesheet" href="../style.css" />
   </head>
   <body>
-    <h1>Meta</h1>
-    <p>This page includes stats about the code of this website.</p>
+    <!-- Meta page header: big title + tagline + stats row -->
+    <header id="meta-header">
+      <div class="meta-title-block">
+        <h1>Meta</h1>
+        <p>This page includes stats about the code of this website.</p>
+      </div>
 
-    <div id="stats"></div>
+      <!-- Overall stats (filled by main.js / renderCommitInfo) -->
+      <div id="stats"></div>
+    </header>
 
-    <h2>Commits by time of day</h2>
-    <div id="chart"></div>
-    <!--Tooltip (starts hidden). Put just after #chart -->
-    <dl id="commit-tooltip" class="info tooltip" hidden>
-      <dt>Commit</dt>
-      <dd><a href="#" id="commit-link" target="_blank" rel="noopener"></a></dd>
+    <h2>Evolution over time</h2>
 
-      <dt>Date</dt>
-      <dd id="commit-date"></dd>
-    </dl>
+    <!-- Scrollytelling layout: text on the left, sticky chart on the right -->
+    <div id="scrolly">
+      <!-- Commit stories go here (filled by JS) -->
+      <div id="scatter-story"></div>
 
-    <!-- hooks -->
-    <p id="selection-count">No commits selected</p>
-    <dl id="language-breakdown" class="stats"></dl>
+      <!-- Sticky scatterplot column -->
+      <div id="chart-wrapper">
+        <h3>Commits by time of day</h3>
+        <div id="chart"></div>
 
+        <!-- Tooltip (starts hidden) -->
+        <dl id="commit-tooltip" class="info tooltip" hidden>
+          <dt>Commit</dt>
+          <dd>
+            <a href="#" id="commit-link" target="_blank" rel="noopener"></a>
+          </dd>
+
+          <dt>Date</dt>
+          <dd id="commit-date"></dd>
+        </dl>
+
+        <!-- Brush-related summary text -->
+        <p id="selection-count">No commits selected</p>
+        <dl id="language-breakdown" class="stats"></dl>
+      </div>
+    </div>
+
+    <h2>Codebase evolution</h2>
+
+    <!-- Two-column layout: left = unit viz, right = commit text -->
+    <div id="codebase-evolution">
+      <!-- Unit visualization of files and lines of code -->
+      <div id="files"></div>
+
+      <!-- Commit narratives repeated on the right -->
+      <div id="files-story"></div>
+    </div>
+
+    <!-- Scripts -->
     <script type="module" src="../global.js"></script>
     <script type="module" src="./main.js"></script>
   </body>
